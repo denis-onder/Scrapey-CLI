@@ -26,8 +26,6 @@ puppeteer
     await page.type('#user_email', `${USERNAME}`, { delay: 150 });
     await page.type('#user_password', `${PASSWORD}`, { delay: 150 });
 
-    // await page.screenshot({ path: './images/signup.png' });
-
     await Promise.all([
       page.click('button[type="submit"]', {
         delay: 1300
@@ -35,16 +33,12 @@ puppeteer
       page.waitForNavigation()
     ]);
 
-    // await page.screenshot({ path: './images/dashboard.png' });
-
     await page.goto(
       'https://www.codewars.com/users/scottworks/completed_solutions',
       {
         waitUntil: 'networkidle0'
       }
     );
-
-    // await page.screenshot({ path: './images/solutions.png' });
 
     const html = await page.content();
 
