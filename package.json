@@ -13,5 +13,8 @@
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^6.2.0",
     "puppeteer": "^1.11.0"
+  },
+  "devDependencies": {
+    "prettier": "1.15.3"
   }
 }
