@@ -1,5 +1,5 @@
 const cheerio = require('cheerio'),
-  createFile = require('./fs');
+  createFile = require('./files');
 
 module.exports = (html) => {
   const $ = cheerio.load(html);

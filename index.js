@@ -1,6 +1,6 @@
 require('dotenv').config();
 const puppeteer = require('puppeteer'),
-  parseKatas = require('./utils/parseKatas');
+  parseKatas = require('./utils/katas');
 
 const { USERNAME, PASSWORD } = process.env;
 
@@ -9,7 +9,7 @@ puppeteer
   .then(async function(browser) {
     const page = await browser.newPage();
     await page.goto('https://www.codewars.com/users/sign_in', {
-      waitUntil: 'networkidle0'
+      waitUntil: 'networkidle2'
     });
 
     // Login
@@ -20,13 +20,17 @@ puppeteer
       page.click('button[type="submit"]', {
         delay: 1300
       }),
-      page.waitForNavigation()
+      page.waitForNavigation({
+        timeout: 60000,
+        waitUntil: 'networkidle2'
+      })
     ]);
 
     await page.goto(
       'https://www.codewars.com/users/scottworks/completed_solutions',
       {
-        waitUntil: 'networkidle0'
+        timeout: 60000,
+        waitUntil: 'networkidle2'
       }
     );
 
