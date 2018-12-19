@@ -11,7 +11,10 @@ module.exports = (katas) => {
       folderExists = checkFolderExists(folderPath);
 
     if (!folderExists) {
-      console.log(`Creating directory for ${kataLevel}!`);
+      setTimeout(function() {
+        console.log(`Creating directory for ${kataLevel}!`);
+      }, 800);
+
       createDirectory(
         folderPath,
         `A directory for ${kataLevel} has been created!`
@@ -44,7 +47,9 @@ function createDirectory(path, message) {
       console.error(err);
       throw err;
     }
-    console.log(message);
+    setTimeout(function() {
+      console.log(message);
+    }, 800);
   });
 }
 
@@ -54,6 +59,8 @@ function createFile(path, payload, message) {
       console.error(err);
       throw err;
     }
-    console.log(message);
+    setTimeout(function() {
+      console.log(message);
+    }, 800);
   });
 }
