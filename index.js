@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer'),
 const { USERNAME, PASSWORD } = process.env;
 
 puppeteer
-  .launch({ headless: false, defaultViewport: { width: 1280, height: 926 } })
+  .launch({ headless: true, defaultViewport: { width: 1280, height: 926 } })
   .then(async function(browser) {
     const page = await browser.newPage();
     await page.goto('https://www.codewars.com/users/sign_in', {
@@ -34,17 +34,17 @@ puppeteer
       }
     );
 
-    // Get the height of the rendered page
-    var height = await page.evaluate('document.body.scrollHeight'),
-      prevHeight = 0;
+    // // Get the height of the rendered page
+    // var height = await page.evaluate('document.body.scrollHeight'),
+    //   prevHeight = 0;
 
-    while (height !== prevHeight) {
-      await page.evaluate(`window.scrollTo(0, ${height})`);
-      await page.waitFor(20000);
+    // while (height !== prevHeight) {
+    //   await page.evaluate(`window.scrollTo(0, ${height})`);
+    //   await page.waitFor(20000);
 
-      prevHeight = height;
-      height = await page.evaluate('document.body.scrollHeight');
-    }
+    //   prevHeight = height;
+    //   height = await page.evaluate('document.body.scrollHeight');
+    // }
 
     // Scroll back to top
     await page.evaluate((_) => {

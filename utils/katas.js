@@ -1,5 +1,6 @@
 const cheerio = require('cheerio'),
-  createFile = require('./files');
+  files = require('./files'),
+  github = require('./github');
 
 module.exports = (html) => {
   const $ = cheerio.load(html);
@@ -36,5 +37,9 @@ module.exports = (html) => {
     });
   });
 
-  createFile(katas);
+  // Check for .git file, add if needed
+  github.initGit();
+  files.createJSFiles(katas);
+
+  // Check for README.md file, add if needed
 };
