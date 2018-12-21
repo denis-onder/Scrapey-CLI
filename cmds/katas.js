@@ -3,7 +3,7 @@ const cheerio = require('cheerio'),
   github = require('./github');
 
 module.exports = {
-  parse: function(html) {
+  parse: async function(html) {
     const $ = cheerio.load(html);
     const katasHTML = $('div .list-item.solutions');
 
@@ -39,7 +39,7 @@ module.exports = {
     });
 
     // Check for .git file, add if needed
-    github.initGit();
+    await github.initGit();
     files.createJSFiles(katas);
 
     // Check for README.md file, add if needed

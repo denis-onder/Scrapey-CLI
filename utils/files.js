@@ -9,19 +9,20 @@ module.exports = {
   //     // Stage and Commit changes
   //     // Push changes
   // },
-  checkPath: function(path, dirName, callback) {
-    fs.stat(path, function(err, stats) {
-      if (err.code !== 'EEXIST' || (stats && !stats.isDirectory())) {
-        console.log(`Creating directory for ${dirName}!`);
-        createDirectory(
-          path,
-          `A directory for ${dirName} has been created!`,
-          callback
-        );
-      } else {
-        callback();
-      }
-    });
+  checkPath: function(path, dirName, kataTitle, payload, callback) {
+    const exists = fs.existsSync(path);
+    if (!exists) {
+      console.log(`Creating directory for ${dirName}!`);
+      createDirectory(
+        path,
+        `A directory for ${dirName} has been created!`,
+        kataTitle,
+        payload,
+        callback
+      );
+    } else {
+      callback(path, kataTitle, payload);
+    }
   },
   createJSFiles: function(katas) {
     katas.forEach((kata) => {
@@ -36,48 +37,36 @@ module.exports = {
         ${kataCode}
         `);
 
-      this.checkPath(folderPath, kataLevel, function(
+      this.checkPath(folderPath, kataLevel, kataTitle, payload, function(
         folderPath,
         kataTitle,
         payload
       ) {
-        console.log(folderPath, kataTitle, payload);
         createFile(
           `${folderPath}/${kataTitle}.js`,
           payload,
           `${kataTitle}.js has been saved!`
         );
       });
-
-      // if (!folderExists) {
-      //   console.log(`Creating directory for ${kataLevel}!`);
-
-      //   await createDirectory(
-      //     folderPath,
-      //     `A directory for ${kataLevel} has been created!`
-      //   );
-      // }
-
       // Stage and Commit changes
     });
-
     // Push changes
   }
 };
 
-function createDirectory(path, message, callback) {
-  fs.mkdir(path, (err) => {
+function createDirectory(path, message, kataTitle, payload, callback) {
+  fs.mkdirSync(path, (err) => {
     if (err) {
       console.error(err);
       throw err;
     }
     console.log(message);
-    callback();
+    callback(path, kataTitle, payload);
   });
 }
 
 function createFile(path, payload, message) {
-  fs.writeFile(path, payload, (err) => {
+  fs.writeFileSync(path, payload, (err) => {
     if (err) {
       console.error(err);
       throw err;
