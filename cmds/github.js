@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { DIR_PATH, GITHUB_REMOTE } = process.env,
   git = require('simple-git/promise')(DIR_PATH),
-  files = require('./files');
+  files = require('../utils/files');
 
 module.exports = {
   initGit: function() {
