@@ -12,6 +12,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^6.2.0",
+    "ora": "^3.0.0",
     "puppeteer": "^1.11.0",
     "simple-git": "^1.107.0"
   },
