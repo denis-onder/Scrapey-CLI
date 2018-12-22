@@ -1,9 +1,8 @@
 const cheerio = require('cheerio'),
-  files = require('../utils/files'),
-  github = require('./github');
+  files = require('../utils/files');
 
 module.exports = {
-  parse: async function(html) {
+  parse: function(html) {
     const $ = cheerio.load(html);
     const katasHTML = $('div .list-item.solutions');
 
@@ -38,10 +37,6 @@ module.exports = {
       });
     });
 
-    // Check for .git file, add if needed
-    await github.initGit();
     files.createJSFiles(katas);
-
-    // Check for README.md file, add if needed
   }
 };

@@ -5,8 +5,12 @@ const { DIR_PATH, GITHUB_REMOTE } = process.env,
 
 module.exports = {
   initGit: function() {
-    git.checkIsRepo().then(function(isRepo) {
-      !isRepo && initializeRepo(git);
+    return new Promise(function(resolve, reject) {
+      resolve(
+        git.checkIsRepo().then(function(isRepo) {
+          !isRepo && initializeRepo(git);
+        })
+      );
     });
   },
   commitChanges: function() {

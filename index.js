@@ -10,9 +10,11 @@ const puppeteer = require('./cmds/puppeteer.js'),
   deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
   fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
 
-  puppeteer.init().then(function(html) {
-    katas.parse(html);
-  });
+  github.initGit().then(
+    puppeteer.init().then(function(html) {
+      katas.parse(html);
+    })
+  );
 })();
 
 function deleteFolderRecursive(path) {
