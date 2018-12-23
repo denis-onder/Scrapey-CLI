@@ -17,7 +17,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       resolve(
         git.add('./*').then(function() {
-          git.commit(`Completed ${kataTitle}`).then(function() {
+          return git.commit(`Completed ${kataTitle}`).then(function() {
             console.log(`${kataTitle} commited to git master branch.`);
           });
         })
@@ -28,7 +28,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       resolve(
         git.push(['-uf', 'origin', 'master'], function() {
-          console.log('\nPushed changes to github.\n');
+          console.log('Successfully pushed changes to github.');
         })
       );
     });
