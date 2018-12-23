@@ -27,20 +27,14 @@ module.exports = {
 
       await this.checkPath(dirPath).then(function(exists) {
         if (!exists) {
-          createDirectory(dirPath)
-            .then(function() {
-              console.log(`Added a directory for level ${kataLevel} katas!\n`);
-            })
-            .then(function() {
-              createFile(filePath, payload).then(function() {
-                console.log(`${kataTitle}.js has been saved!\n`);
-              });
-            });
-        } else {
-          createFile(filePath, payload).then(function() {
-            console.log(`${kataTitle}.js has been saved!`);
+          createDirectory(dirPath).then(function() {
+            console.log(`Added a directory for level ${kataLevel} katas!`);
           });
         }
+
+        createFile(filePath, payload).then(function() {
+          console.log(`${kataTitle}.js has been saved!`);
+        });
       });
 
       await github.commitChanges(kataTitle);
