@@ -1,7 +1,8 @@
 require('dotenv').config();
 const { DIR_PATH, GITHUB_REPO } = process.env,
   git = require('simple-git/promise')(DIR_PATH),
-  files = require('../utils/files');
+  files = require('../utils/files'),
+  ora = require('../utils/ora');
 
 module.exports = {
   initGit: function() {
@@ -14,21 +15,25 @@ module.exports = {
     });
   },
   commitChanges: function(kataTitle) {
+    const spinner = ora.createSpinner();
+
     return new Promise(function(resolve, reject) {
       resolve(
         git.add('./*').then(function() {
           return git.commit(`Completed ${kataTitle}`).then(function() {
-            console.log(`${kataTitle} commited to git master branch.`);
+            spinner.succeed(`${kataTitle} commited to git master branch.`);
           });
         })
       );
     });
   },
   pushChanges: function() {
+    const spinner = ora.createSpinner();
+
     return new Promise(function(resolve, reject) {
       resolve(
         git.push(['-uf', 'origin', 'master'], function() {
-          console.log('Successfully pushed changes to github.');
+          spinner.succeed('Pushed changes to github.');
         })
       );
     });
@@ -36,10 +41,12 @@ module.exports = {
 };
 
 function initializeRepo(git) {
+  const spinner = ora.createSpinner();
+
   return git.init().then(function() {
-    console.log('Git repo initialized.');
+    spinner.info('Git repo initialized.');
     git.addRemote('origin', GITHUB_REPO, function() {
-      console.log(`${GITHUB_REPO} added to remote.`);
+      spinner.info(`${GITHUB_REPO} added to remote.`);
     });
   });
 }

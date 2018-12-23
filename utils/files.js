@@ -1,7 +1,8 @@
 require('dotenv').config();
 const fs = require('fs'),
   formatJSFile = require('./prettier'),
-  github = require('../cmds/github');
+  github = require('../cmds/github'),
+  ora = require('./ora');
 
 const { DIR_PATH } = process.env;
 
@@ -19,21 +20,23 @@ module.exports = {
       const filePath = `${dirPath}/${kataTitle}.js`;
 
       const payload = formatJSFile(`
-        // ${kataTitle}
-        // ${kataLink}
-    
-        ${kataCode}
-        `);
+          // ${kataTitle}
+          // ${kataLink}
+      
+          ${kataCode}
+          `);
+
+      const spinner = ora.createSpinner();
 
       this.checkPath(dirPath).then(async function(exists) {
         if (!exists) {
           await createDirectory(dirPath).then(function() {
-            console.log(`Added a directory for level ${kataLevel} katas!`);
+            spinner.succeed(`Added a directory for level ${kataLevel} katas!`);
           });
         }
 
         await createFile(filePath, payload).then(function() {
-          console.log(`${kataTitle}.js has been saved!`);
+          spinner.succeed(`${kataTitle}.js has been saved!`);
         });
       });
 

@@ -6,8 +6,8 @@ const puppeteer = require('./cmds/puppeteer.js'),
 
 (async function() {
   const { DIR_PATH } = process.env;
-  // deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
-  // fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
+  deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
+  fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
 
   github.initGit().then(
     puppeteer.init().then(function(html) {
