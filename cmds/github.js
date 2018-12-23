@@ -1,9 +1,7 @@
 require('dotenv').config();
-const { DIR_PATH, GITHUB_USERNAME, GITHUB_PASSWORD, GITHUB_REPO } = process.env,
+const { DIR_PATH, GITHUB_REPO } = process.env,
   git = require('simple-git/promise')(DIR_PATH),
   files = require('../utils/files');
-
-const remote = `https://${GITHUB_REPO}`;
 
 module.exports = {
   initGit: function() {
@@ -20,9 +18,7 @@ module.exports = {
       resolve(
         git.add('./*').then(function() {
           git.commit(`Completed ${kataTitle}`).then(function() {
-            git.status().then(function(status) {
-              console.log(status);
-            });
+            console.log(`${kataTitle} commited to git master branch.`);
           });
         })
       );
@@ -47,7 +43,7 @@ function initializeRepo(git) {
       console.log('Git repo initialized.');
     })
     .then(function() {
-      git.addRemote('origin', remote, function() {
+      git.addRemote('origin', GITHUB_REPO, function() {
         console.log('Remote added.');
       });
     });
