@@ -31,7 +31,7 @@ module.exports = {
       this.checkPath(dirPath).then(async function(exists) {
         if (!exists) {
           await createDirectory(dirPath).then(function() {
-            spinner.succeed(`Added a directory for level ${kataLevel} katas!`);
+            spinner.info(`Added a directory for level ${kataLevel} katas!`);
           });
         }
 

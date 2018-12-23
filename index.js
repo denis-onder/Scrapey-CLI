@@ -6,8 +6,8 @@ const puppeteer = require('./cmds/puppeteer.js'),
 
 (async function() {
   const { DIR_PATH } = process.env;
-  deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
-  fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
+  // deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
+  // fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
 
   github.initGit().then(
     puppeteer.init().then(function(html) {
@@ -16,18 +16,19 @@ const puppeteer = require('./cmds/puppeteer.js'),
   );
 })();
 
-function deleteFolderRecursive(path) {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach(function(file, index) {
-      var curPath = path + '/' + file;
-      if (fs.lstatSync(curPath).isDirectory()) {
-        // recurse
-        deleteFolderRecursive(curPath);
-      } else {
-        // delete file
-        fs.unlinkSync(curPath);
-      }
-    });
-    fs.rmdirSync(path);
-  }
-}
+// DEVELOPMENT ONLY
+// function deleteFolderRecursive(path) {
+//   if (fs.existsSync(path)) {
+//     fs.readdirSync(path).forEach(function(file, index) {
+//       var curPath = path + '/' + file;
+//       if (fs.lstatSync(curPath).isDirectory()) {
+//         // recurse
+//         deleteFolderRecursive(curPath);
+//       } else {
+//         // delete file
+//         fs.unlinkSync(curPath);
+//       }
+//     });
+//     fs.rmdirSync(path);
+//   }
+// }
