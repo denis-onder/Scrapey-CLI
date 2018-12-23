@@ -36,21 +36,10 @@ module.exports = {
 };
 
 function initializeRepo(git) {
-  console.log('Initializing git repo and adding remote.');
-  return git
-    .init()
-    .then(function() {
-      console.log('Git repo initialized.');
-    })
-    .then(function() {
-      git.addRemote('origin', GITHUB_REPO, function() {
-        console.log('Remote added.');
-      });
+  return git.init().then(function() {
+    console.log('Git repo initialized.');
+    git.addRemote('origin', GITHUB_REPO, function() {
+      console.log(`${GITHUB_REPO} added to remote.`);
     });
-}
-
-function stageChanges(kataTitle) {
-  return new Promise(function(resolve, reject) {
-    resolve(git.add('./*'));
   });
 }
