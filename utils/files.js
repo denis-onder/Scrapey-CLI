@@ -25,14 +25,14 @@ module.exports = {
         ${kataCode}
         `);
 
-      await this.checkPath(dirPath).then(function(exists) {
+      this.checkPath(dirPath).then(async function(exists) {
         if (!exists) {
-          createDirectory(dirPath).then(function() {
+          await createDirectory(dirPath).then(function() {
             console.log(`Added a directory for level ${kataLevel} katas!`);
           });
         }
 
-        createFile(filePath, payload).then(function() {
+        await createFile(filePath, payload).then(function() {
           console.log(`${kataTitle}.js has been saved!`);
         });
       });
@@ -40,7 +40,7 @@ module.exports = {
       await github.commitChanges(kataTitle);
     }
 
-    await github.pushChanges();
+    github.pushChanges();
   }
 };
 
