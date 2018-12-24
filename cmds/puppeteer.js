@@ -2,7 +2,7 @@ require('dotenv').config();
 const puppeteer = require('puppeteer'),
   ora = require('../utils/ora');
 
-const { USERNAME, PASSWORD } = process.env;
+const { CODEWARS_EMAIL, CODEWARS_PASSWORD } = process.env;
 
 module.exports = {
   init: function() {
@@ -48,7 +48,7 @@ module.exports = {
 
           spinner.succeed();
 
-          await handleLazyLoad(page, spinner);
+          // await handleLazyLoad(page, spinner);
 
           // Scroll back to top
           await page.evaluate('window.scrollTo(0, 0)');
@@ -67,8 +67,8 @@ module.exports = {
 async function handleLogin(page, spinner) {
   spinner.start('Logging into CodeWars.');
 
-  await page.type('#user_email', `${USERNAME}`, { delay: 150 });
-  await page.type('#user_password', `${PASSWORD}`, { delay: 150 });
+  await page.type('#user_email', `${CODEWARS_EMAIL}`, { delay: 150 });
+  await page.type('#user_password', `${CODEWARS_PASSWORD}`, { delay: 150 });
 
   spinner.succeed();
 }

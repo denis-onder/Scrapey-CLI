@@ -2,18 +2,25 @@ require('dotenv').config();
 const puppeteer = require('./cmds/puppeteer.js'),
   katas = require('./cmds/katas.js'),
   github = require('./cmds/github.js'),
-  fs = require('fs');
+  files = require('./cmds/files');
+fs = require('fs');
 
 (async function() {
   const { DIR_PATH } = process.env;
   // deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
   // fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
 
-  github.initGit().then(
-    puppeteer.init().then(function(html) {
-      katas.parse(html);
+  github
+    .initGit()
+    .then(function() {
+      return puppeteer.init();
     })
-  );
+    .then(function(html) {
+      return katas.parse(html);
+    })
+    .then(function(katas) {
+      return files.createJSFiles(katas);
+    });
 })();
 
 // DEVELOPMENT ONLY

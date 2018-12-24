@@ -1,8 +1,8 @@
 require('dotenv').config();
 const fs = require('fs'),
-  formatJSFile = require('./prettier'),
-  github = require('../cmds/github'),
-  ora = require('./ora');
+  formatJSFile = require('../utils/prettier'),
+  github = require('./github'),
+  ora = require('../utils/ora');
 
 const { DIR_PATH } = process.env;
 

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { DIR_PATH, GITHUB_REPO } = process.env,
   git = require('simple-git/promise')(DIR_PATH),
-  files = require('../utils/files'),
+  files = require('./files'),
   ora = require('../utils/ora');
 
 module.exports = {
@@ -19,11 +19,14 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
       resolve(
-        git.add('./*').then(function() {
-          return git.commit(`Completed ${kataTitle}`).then(function() {
+        git
+          .add('./*')
+          .then(function() {
+            return git.commit(`Completed ${kataTitle}`);
+          })
+          .then(function() {
             spinner.succeed(`${kataTitle} commited to git master branch.`);
-          });
-        })
+          })
       );
     });
   },
@@ -32,8 +35,8 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
       resolve(
-        git.push(['-uf', 'origin', 'master'], function() {
-          spinner.succeed('Pushed changes to github.');
+        git.push(['-uf', 'origin', 'master']).then(function() {
+          return spinner.succeed('Pushed changes to github.');
         })
       );
     });
