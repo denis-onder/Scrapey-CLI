@@ -48,7 +48,7 @@ module.exports = {
 
           spinner.succeed();
 
-          // await handleLazyLoad(page, spinner);
+          await handleLazyLoad(page, spinner);
 
           // Scroll back to top
           await page.evaluate('window.scrollTo(0, 0)');

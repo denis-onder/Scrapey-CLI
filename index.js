@@ -20,6 +20,12 @@ fs = require('fs');
     })
     .then(function(katas) {
       return files.createJSFiles(katas);
+    })
+    .then(function() {
+      return github.pushChanges();
+    })
+    .then(function() {
+      return process.exit();
     });
 })();
 
