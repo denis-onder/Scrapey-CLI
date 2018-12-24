@@ -1,6 +1,8 @@
 ![fig1](/assets/fig1.png)
 
-## Motivation
+## Project Description
+
+Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally, and pushes them to Github.
 
 ## Getting Started
 
