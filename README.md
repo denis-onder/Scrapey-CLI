@@ -6,6 +6,8 @@ Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally,
 
 ## Getting Started
 
+**NOTE: If you connection is slow there is a chance the response time from the Codewars server will exceed the timeout set in Scrapey. If you notice not all of your Kata's have been saved restart Scrapey.**
+
 1. Clone this repo.
 2. In the command-line navigate to the root of the project folder.
 3. Enter `npm install`.
