@@ -41,7 +41,7 @@ module.exports = {
           await page.goto(
             `https://www.codewars.com/users/${CODEWARS_USERNAME}/completed_solutions`,
             {
-              timeout: 60000,
+              timeout: 80000,
               waitUntil: 'networkidle2'
             }
           );
