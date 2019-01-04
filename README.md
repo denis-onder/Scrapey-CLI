@@ -8,12 +8,12 @@ Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally,
 
 Feel free to add feature requests in the issues tracker.
 
-- [ ] - Support multiple languages
-- [ ] - Improve scraping time and reliability
-- [ ] - Add and maintain detailed README.md file generation (Challenge Repo)
-- [ ] - Generate files based on kataDelta.json file
-- [ ] - Handle incorrect password gracefully
-- [ ] - Robust error handling
+- [ ] Support multiple languages
+- [ ] Improve scraping time and reliability
+- [ ] Add and maintain detailed README.md file generation (Challenge Repo)
+- [ ] Generate files based on kataDelta.json file
+- [ ] Handle incorrect password gracefully
+- [ ] Robust error handling
 
 ## Getting Started
 
