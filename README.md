@@ -2,7 +2,12 @@
 
 ## Project Description
 
-Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally, and pushes them to Github.
+Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally, and pushes them to Github. Currently this app only supports Javscript file creation, in future releases Scrapey will be language Agnostic.
+
+- [ ] - Support multiple languages
+- [ ] - Improve scraping time and reliability
+- [ ] - Detailed README.md file generation
+- [ ] - Generate files based on kataDelta.json file
 
 ## Getting Started
 
