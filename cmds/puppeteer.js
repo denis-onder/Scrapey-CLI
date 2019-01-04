@@ -2,7 +2,12 @@ require('dotenv').config();
 const puppeteer = require('puppeteer'),
   ora = require('../utils/ora');
 
-const { CODEWARS_EMAIL, CODEWARS_USERNAME, CODEWARS_PASSWORD } = process.env;
+const {
+  CODEWARS_EMAIL,
+  CODEWARS_USERNAME,
+  CODEWARS_PASSWORD,
+  TIMEOUT
+} = process.env;
 
 module.exports = {
   init: function() {
@@ -41,7 +46,7 @@ module.exports = {
           await page.goto(
             `https://www.codewars.com/users/${CODEWARS_USERNAME}/completed_solutions`,
             {
-              timeout: 80000,
+              timeout: 60000,
               waitUntil: 'networkidle2'
             }
           );
@@ -84,7 +89,8 @@ async function handleLazyLoad(page, spinner) {
 
   while (height !== prevHeight) {
     await page.evaluate(`window.scrollTo(0, ${height})`);
-    await page.waitFor(20000);
+
+    await page.waitFor(+TIMEOUT);
 
     prevHeight = height;
     height = await page.evaluate('document.body.scrollHeight');
