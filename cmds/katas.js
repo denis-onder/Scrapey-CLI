@@ -28,7 +28,9 @@ module.exports = {
 
         var kataCode = $(this)
           .find($('.markdown'))
-          .text();
+          // .text();
+
+          console.log('kataCode', kataCode);
 
         katas.push({
           kataLevel: kataLevel,

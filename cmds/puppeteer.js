@@ -2,7 +2,7 @@ require('dotenv').config();
 const puppeteer = require('puppeteer'),
   ora = require('../utils/ora');
 
-const { CODEWARS_EMAIL, CODEWARS_PASSWORD } = process.env;
+const { CODEWARS_EMAIL, CODEWARS_USERNAME, CODEWARS_PASSWORD } = process.env;
 
 module.exports = {
   init: function() {
@@ -39,7 +39,7 @@ module.exports = {
           ]);
 
           await page.goto(
-            'https://www.codewars.com/users/scottworks/completed_solutions',
+            `https://www.codewars.com/users/${CODEWARS_USERNAME}/completed_solutions`,
             {
               timeout: 60000,
               waitUntil: 'networkidle2'
