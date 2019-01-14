@@ -19,7 +19,7 @@ fs = require('fs');
       return katas.parse(html);
     })
     .then(function(katas) {
-      return files.createJSFiles(katas);
+      return files.createFiles(katas);
     })
     .then(function() {
       return github.pushChanges();

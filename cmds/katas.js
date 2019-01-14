@@ -26,17 +26,27 @@ module.exports = {
           .find('a')
           .attr('href')}`;
 
-        var kataCode = $(this)
-          .find($('.markdown'))
-          // .text();
+        var solutions = $(this).find($('.markdown'));
+        let solutionsArr = [];
+        for (let i = 0; i < solutions.length; i++) {
+          let language = '';
+          if (solutions[i].prev.name === 'h6') {
+            language = solutions[i].prev.children[0].data
+            language = language.substring(0, language.length - 1);
+          } else {
+            language = solutionsArr[i - 1].language;
+          }
 
-          console.log('kataCode', kataCode);
+          let code = solutions.slice(i, i+1).text();
+
+          solutionsArr.push({ language, code });
+        }
 
         katas.push({
-          kataLevel: kataLevel,
-          kataTitle: kataTitle,
-          kataLink: kataLink,
-          kataCode: kataCode
+          kataLevel,
+          kataTitle,
+          kataLink,
+          solutionsArr,
         });
       });
 
