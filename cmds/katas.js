@@ -7,26 +7,26 @@ module.exports = {
       const $ = cheerio.load(html);
       const katasHTML = $('div .list-item.solutions');
 
-      var katas = [];
+      let katas = [];
 
       katasHTML.each(function(i, elem) {
-        var kataLevel = $(this)
+        const kataLevel = $(this)
           .find($('.inner-small-hex.is-extra-wide'))
           .text()
           .replace(/\s/g, '');
 
-        var kataTitle = $(this)
+        const kataTitle = $(this)
           .find($('.item-title>a'))
           .text()
           .trim()
           .replace(/\W+/g, '')
           .replace(/\s/g, '-');
 
-        var kataLink = `https://www.codewars.com/${$(this)
+        const kataLink = `https://www.codewars.com/${$(this)
           .find('a')
           .attr('href')}`;
 
-        var solutions = $(this).find($('.markdown'));
+        const solutions = $(this).find($('.markdown'));
         let solutionsArr = [];
         for (let i = 0; i < solutions.length; i++) {
           let language = '';
