@@ -6,39 +6,27 @@ const { DIR_PATH, GITHUB_REPO } = process.env,
 
 module.exports = {
   initGit: function() {
-    return new Promise(function(resolve, reject) {
-      resolve(
-        git.checkIsRepo().then(function(isRepo) {
-          !isRepo && initializeRepo(git);
-        })
-      );
+    return git.checkIsRepo().then(function(isRepo) {
+      !isRepo && initializeRepo(git);
     });
   },
   commitChanges: function(kataTitle) {
     const spinner = ora.createSpinner();
 
-    return new Promise(function(resolve, reject) {
-      resolve(
-        git
-          .add('./*')
-          .then(function() {
-            return git.commit(`Completed ${kataTitle}`);
-          })
-          .then(function() {
-            spinner.succeed(`${kataTitle} commited to git master branch.`);
-          })
-      );
-    });
+    return git
+      .add('./*')
+      .then(function() {
+        return git.commit(`Completed ${kataTitle}`);
+      })
+      .then(function() {
+        spinner.succeed(`${kataTitle} commited to git master branch.`);
+      });
   },
   pushChanges: function() {
     const spinner = ora.createSpinner();
 
-    return new Promise(function(resolve, reject) {
-      resolve(
-        git.push(['-uf', 'origin', 'master']).then(function() {
-          return spinner.succeed('Pushed changes to github.');
-        })
-      );
+    return git.push(['-uf', 'origin', 'master']).then(function() {
+      spinner.succeed('Pushed changes to github.');
     });
   }
 };
