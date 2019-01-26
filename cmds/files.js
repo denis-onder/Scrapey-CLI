@@ -17,14 +17,17 @@ module.exports = {
         const exists = await checkPath(dirPath);
 
         if (!exists) {
-          await createDirectory(dirPath)
+          await createDirectory(dirPath);
           spinner.info(`Added a directory for level ${kataLevel} katas!`);
         }
-        
+
         let version = 1;
         for (let i = solutionsArr.length - 1; i >= 0; i--) {
           const fileExtension = getFileExtension(solutionsArr[i].language);
-          if (i !== solutionsArr.length - 1 && solutionsArr[i].language === solutionsArr[i + 1].language) {
+          if (
+            i !== solutionsArr.length - 1 &&
+            solutionsArr[i].language === solutionsArr[i + 1].language
+          ) {
             version++;
           } else {
             version = 1;
@@ -48,9 +51,10 @@ module.exports = {
             `;
           }
 
-          await createFile(filePath, payload)
-          spinner.succeed(`${kataTitle}_v${version}${fileExtension} has been saved!`);
-
+          await createFile(filePath, payload);
+          spinner.succeed(
+            `${kataTitle}_v${version}${fileExtension} has been saved!`
+          );
         }
 
         await github.commitChanges(kataTitle);
@@ -62,13 +66,13 @@ module.exports = {
 };
 
 const checkPath = (path) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve(fs.existsSync(path));
   });
 };
 
 const createDirectory = (dirPath) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve(
       fs.mkdirSync(dirPath, (err) => {
         if (err) {
@@ -78,10 +82,10 @@ const createDirectory = (dirPath) => {
       })
     );
   });
-}
+};
 
 const createFile = (filePath, payload) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve(
       fs.writeFileSync(filePath, payload, (err) => {
         if (err) {
@@ -91,7 +95,7 @@ const createFile = (filePath, payload) => {
       })
     );
   });
-}
+};
 
 const getFileExtension = (language) => {
   switch (language) {
@@ -112,79 +116,79 @@ const getFileExtension = (language) => {
     case 'C':
       return '.c';
     case 'Clojure':
-      return '.clj';    
+      return '.clj';
     case 'CoffeeScript':
-      return '.coffee';    
+      return '.coffee';
     case 'Crystal':
-      return '.cr';    
+      return '.cr';
     case 'C#':
-      return '.cs';    
+      return '.cs';
     case 'Dart':
-      return '.dart';    
+      return '.dart';
     case 'Elixir':
-      return '.ex';    
+      return '.ex';
     case 'Elm':
-      return '.elm';    
+      return '.elm';
     case 'Erlang':
-      return '.erl';    
+      return '.erl';
     case 'Fortran':
-      return '.f';    
+      return '.f';
     case 'F#':
-      return '.fs';    
+      return '.fs';
     case 'Groovy':
-      return '.groovy';    
+      return '.groovy';
     case 'Haskell':
-      return '.hs';    
+      return '.hs';
     case 'Julia':
-      return '.jl';    
+      return '.jl';
     case 'Kotlin':
-      return '.kt';    
+      return '.kt';
     case 'Lua':
-      return '.lua';    
+      return '.lua';
     case 'NASM':
-      return '.exe';    // unsure on this one
+      return '.exe'; // unsure on this one
     case 'Nim':
-      return '.nim';    
+      return '.nim';
     case 'Objective-C':
-      return '.h';    
+      return '.h';
     case 'OCaml':
-      return '.ml';    
+      return '.ml';
     case 'PHP':
-      return '.php';    
+      return '.php';
     case 'PowerShell':
-      return '.ps1';    
+      return '.ps1';
     case 'PureScript':
-      return '.purs';    
+      return '.purs';
     case 'Python':
-      return '.py';    
+      return '.py';
     case 'R':
-      return '.r';    
+      return '.r';
     case 'Ruby':
-      return '.rb';    
+      return '.rb';
     case 'Rust':
-      return '.rs';    
+      return '.rs';
     case 'Scala':
-      return '.scala';    
+      return '.scala';
     case 'Shell':
-      return '.sh';    
+      return '.sh';
     case 'Solidity':
-      return '.solidity';    
+      return '.solidity';
     case 'Swift':
-      return '.swift';    
+      return '.swift';
     case 'Chapel':
-      return '.chpl';    
+      return '.chpl';
     case 'CSS3':
-      return '.css';    
+      return '.css';
     case 'D':
-      return '.d';    
+      return '.d';
     case 'Lisp':
-      return '.lsp';    
+      return '.lsp';
     case 'Perl':
-      return '.pl';    
+      return '.pl';
     case 'Racket':
-      return '.rkt';    
+      return '.rkt';
     case 'Sass':
-      return '.sass';    
+      return '.sass';
     default:
       return '';
   }
