@@ -11,8 +11,7 @@ Feel free to add feature requests in the issues tracker.
 - [x] Support multiple languages
 - [ ] Improve scraping time and reliability
 - [ ] Add and maintain detailed README.md file generation (Challenge Repo)
-- [ ] Generate files based on kataDelta.json file
-- [ ] Handle incorrect password gracefully
+- [ ] Handle password rejection gracefully
 - [ ] Robust error handling
 
 ## Getting Started
