@@ -1,32 +1,31 @@
 require('dotenv').config();
 const puppeteer = require('./cmds/puppeteer.js'),
-  katas = require('./cmds/katas.js'),
-  github = require('./cmds/github.js'),
-  files = require('./cmds/files');
-fs = require('fs');
+	katas = require('./cmds/katas.js'),
+	github = require('./cmds/github.js'),
+	files = require('./cmds/files');
 
 (async function() {
-  const { DIR_PATH } = process.env;
-  // deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
-  // fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
+	// const { DIR_PATH } = process.env;
+	// deleteFolderRecursive(DIR_PATH); // DEVELOPMENT ONLY
+	// fs.mkdirSync(DIR_PATH); // DEVELOPMENT ONLY
 
-  github
-    .initGit()
-    .then(function() {
-      return puppeteer.init();
-    })
-    .then(function(html) {
-      return katas.parse(html);
-    })
-    .then(function(katas) {
-      return files.createFiles(katas);
-    })
-    .then(function() {
-      return github.pushChanges();
-    })
-    .then(function() {
-      return process.exit();
-    });
+	github
+		.initGit()
+		.then(function() {
+			return puppeteer.init();
+		})
+		.then(function(html) {
+			return katas.parse(html);
+		})
+		.then(function(katas) {
+			return files.createFiles(katas);
+		})
+		.then(function() {
+			return github.pushChanges();
+		})
+		.then(function() {
+			return process.exit();
+		});
 })();
 
 // DEVELOPMENT ONLY

@@ -1,56 +1,56 @@
-const cheerio = require('cheerio'),
-  files = require('../cmds/files');
+const cheerio = require('cheerio');
 
 module.exports = {
-  parse: function(html) {
-    return new Promise(function(resolve, reject) {
-      const $ = cheerio.load(html);
-      const katasHTML = $('div .list-item.solutions');
+	parse: function(html) {
+		return new Promise(function(resolve) {
+			const $ = cheerio.load(html);
+			const katasHTML = $('div .list-item.solutions');
 
-      let katas = [];
+			let katas = [];
 
-      katasHTML.each(function(i, elem) {
-        const kataLevel = $(this)
-          .find($('.inner-small-hex.is-extra-wide'))
-          .text()
-          .replace(/\s/g, '');
+			katasHTML.each(function() {
+				const kataLevel = $(this)
+					.find($('.inner-small-hex.is-extra-wide'))
+					.text()
+					.replace(/\s/g, '');
 
-        const kataTitle = $(this)
-          .find($('.item-title>a'))
-          .text()
-          .trim()
-          .replace(/\W+/g, '')
-          .replace(/\s/g, '-');
+				const kataTitle = $(this)
+					.find($('.item-title>a'))
+					.text()
+					.trim()
+					.replace(/\W+/g, '')
+					.replace(/\s/g, '-');
 
-        const kataLink = `https://www.codewars.com/${$(this)
-          .find('a')
-          .attr('href')}`;
+				const kataLink = `https://www.codewars.com/${$(this)
+					.find('a')
+					.attr('href')}`;
 
-        const solutions = $(this).find($('.markdown'));
-        let solutionsArr = [];
-        for (let i = 0; i < solutions.length; i++) {
-          let language = '';
-          if (solutions[i].prev.name === 'h6') {
-            language = solutions[i].prev.children[0].data
-            language = language.substring(0, language.length - 1);
-          } else {
-            language = solutionsArr[i - 1].language;
-          }
+				const solutions = $(this).find($('.markdown'));
+				let solutionsArr = [];
 
-          let code = solutions.slice(i, i+1).text();
+				for (let i = 0; i < solutions.length; i++) {
+					let language = '';
+					if (solutions[i].prev.name === 'h6') {
+						language = solutions[i].prev.children[0].data;
+						language = language.substring(0, language.length - 1);
+					} else {
+						language = solutionsArr[i - 1].language;
+					}
 
-          solutionsArr.push({ language, code });
-        }
+					let code = solutions.slice(i, i + 1).text();
 
-        katas.push({
-          kataLevel,
-          kataTitle,
-          kataLink,
-          solutionsArr,
-        });
-      });
+					solutionsArr.push({ language, code });
+				}
 
-      resolve(katas);
-    });
-  }
+				katas.push({
+					kataLevel,
+					kataTitle,
+					kataLink,
+					solutionsArr
+				});
+			});
+
+			resolve(katas);
+		});
+	}
 };
