@@ -7,7 +7,7 @@ const fs = require('fs'),
 const { DIR_PATH } = process.env;
 
 module.exports = {
-	createKatas: (katas) => {
+	createKatas: function(katas) {
 		return new Promise(async function(resolve) {
 			for (let kata of katas) {
 				const spinner = ora.createSpinner(),
@@ -64,6 +64,22 @@ module.exports = {
 						);
 					}
 				}
+			}
+
+			resolve('Done');
+		});
+	},
+	createReadme: function() {
+		return new Promise(async function(resolve) {
+			const spinner = ora.createSpinner(),
+				readmePath = `${DIR_PATH}/README.md`,
+				readmeExists = await checkPath(readmePath);
+
+			let readmeContents = 'Great Success';
+
+			if (!readmeExists) {
+				await createFile(readmePath, readmeContents);
+				spinner.info('Added README.md file!');
 			}
 
 			resolve('Done');
