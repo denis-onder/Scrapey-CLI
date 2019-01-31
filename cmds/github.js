@@ -10,16 +10,9 @@ module.exports = {
 		});
 	},
 	commitChanges: function(filePath, kataTitle) {
-		const spinner = ora.createSpinner();
-
-		return git
-			.add(filePath)
-			.then(function() {
-				return git.commit(`Completed ${kataTitle}`);
-			})
-			.then(function() {
-				spinner.succeed(`${kataTitle} commited to git master branch.`);
-			});
+		return git.add(filePath).then(function() {
+			return git.commit(`Completed ${kataTitle}`);
+		});
 	},
 	pushChanges: function() {
 		const spinner = ora.createSpinner();
