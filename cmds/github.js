@@ -9,11 +9,11 @@ module.exports = {
 			!isRepo && initializeRepo(git);
 		});
 	},
-	commitChanges: function(kataTitle) {
+	commitChanges: function(filePath, kataTitle) {
 		const spinner = ora.createSpinner();
 
 		return git
-			.add('./*')
+			.add(filePath)
 			.then(function() {
 				return git.commit(`Completed ${kataTitle}`);
 			})
