@@ -57,9 +57,11 @@ module.exports = {
 						const kataFileName = `${kataTitle}_v${version}${fileExtension}`;
 
 						await createFile(filePath, payload);
-						spinner.succeed(`${kataFileName} has been saved!`);
-
 						await github.commitChanges(filePath, kataFileName);
+
+						spinner.succeed(
+							`${kataFileName} has been saved locally and commited to git!`
+						);
 					}
 				}
 			}
