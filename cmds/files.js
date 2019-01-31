@@ -7,16 +7,15 @@ const fs = require('fs'),
 const { DIR_PATH } = process.env;
 
 module.exports = {
-	createFiles: (katas) => {
+	createKatas: (katas) => {
 		return new Promise(async function(resolve) {
 			for (let kata of katas) {
-				const spinner = ora.createSpinner();
-				const { kataLevel, kataTitle, kataLink, solutionsArr } = kata;
-				const dirPath = `${DIR_PATH}/${kataLevel}`;
+				const spinner = ora.createSpinner(),
+					{ kataLevel, kataTitle, kataLink, solutionsArr } = kata,
+					dirPath = `${DIR_PATH}/${kataLevel}`,
+					folderExists = await checkPath(dirPath);
 
-				const exists = await checkPath(dirPath);
-
-				if (!exists) {
+				if (!folderExists) {
 					await createDirectory(dirPath);
 					spinner.info(`Added a directory for level ${kataLevel} katas!`);
 				}
@@ -34,9 +33,9 @@ module.exports = {
 					}
 
 					const filePath = `${dirPath}/${kataTitle}_v${version}${fileExtension}`;
-
 					let payload = '';
-					if (fileExtension === 'js') {
+
+					if (fileExtension === '.js') {
 						payload = formatJSFile(`
               // ${kataTitle}
               // ${kataLink}
@@ -52,13 +51,17 @@ module.exports = {
           `;
 					}
 
-					await createFile(filePath, payload);
-					spinner.succeed(
-						`${kataTitle}_v${version}${fileExtension} has been saved!`
-					);
-				}
+					const fileExists = await checkPath(filePath);
 
-				await github.commitChanges(kataTitle);
+					if (!fileExists) {
+						const kataFileName = `${kataTitle}_v${version}${fileExtension}`;
+
+						await createFile(filePath, payload);
+						spinner.succeed(`${kataFileName} has been saved!`);
+
+						await github.commitChanges(filePath, kataFileName);
+					}
+				}
 			}
 
 			resolve('Done');
