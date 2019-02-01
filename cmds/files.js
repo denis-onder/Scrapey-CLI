@@ -86,25 +86,26 @@ module.exports = {
 
 				for (let language in languages) {
 					skills +=
-						`#### ${language}\n` +
-						`Rank: ${languages[language].rank} \n` +
-						`Score: ${languages[language].score} \n`;
+						`### ${language}\n` +
+						`#### Rank - ${languages[language].name} / Score - ${
+							languages[language].score
+						}\n`;
 				}
 
 				var readmeContents =
-					'## :trident:Codewars Challenge Repo:trident:\n' +
+					'## :trident: Codewars Challenge Repo\n' +
 					'![Badge](https://www.codewars.com/users/scottworks/badges/large)\n' +
-					`### :wolf:Clan:wolf:: ${userInfo.clan}\n` +
-					'### :zap:Skills:zap::\n' +
+					`### :wolf: Clan: ${userInfo.clan}\n` +
+					'## :zap: Skills\n' +
 					`${skills}\n` +
-					'## :chart_with_upwards_trend:Stats:chart_with_upwards_trend::\n' +
-					`### :trophy:Leaderboard Position:trophy:: ${
+					'## :chart_with_upwards_trend: Stats\n' +
+					`### :trophy: Leaderboard Position - ${
 						userInfo.leaderboardPosition
 					}\n` +
-					`#### :pencil2:Authored Challenges:pencil2:: ${
+					`### :pencil2: Authored Challenges - ${
 						userInfo.codeChallenges.totalAuthored
 					}\n` +
-					`#### :muscle:Completed Challenges:muscle:: ${
+					`### :muscle: Completed Challenges - ${
 						userInfo.codeChallenges.totalCompleted
 					}\n`;
 
