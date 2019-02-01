@@ -2,7 +2,8 @@ require('dotenv').config();
 const fs = require('fs'),
 	formatJSFile = require('../utils/prettier'),
 	github = require('./github'),
-	ora = require('../utils/ora');
+	ora = require('../utils/ora'),
+	codewars = require('../utils/codewars');
 
 const { DIR_PATH } = process.env;
 
@@ -57,7 +58,7 @@ module.exports = {
 						const kataFileName = `${kataTitle}_v${version}${fileExtension}`;
 
 						await createFile(filePath, payload);
-						await github.commitChanges(filePath, kataFileName);
+						await github.commitChanges(filePath, `Completed ${kataTitle}`);
 
 						spinner.succeed(
 							`${kataFileName} has been saved locally and commited to git!`
@@ -75,12 +76,46 @@ module.exports = {
 				readmePath = `${DIR_PATH}/README.md`,
 				readmeExists = await checkPath(readmePath);
 
-			let readmeContents = 'Great Success';
+			codewars(async function(userInfo) {
+				var skills = '';
 
-			if (!readmeExists) {
+				// userInfo.skills.forEach((skill) => {
+				// 	skills += `- ${skill}\n`;
+				// });
+				var languages = userInfo.ranks.languages;
+
+				for (let language in languages) {
+					skills +=
+						`#### ${language}\n` +
+						`Rank: ${languages[language].rank} \n` +
+						`Score: ${languages[language].score} \n`;
+				}
+
+				var readmeContents =
+					'## :trident:Codewars Challenge Repo:trident:\n' +
+					'![Badge](https://www.codewars.com/users/scottworks/badges/large)\n' +
+					`### :wolf:Clan:wolf:: ${userInfo.clan}\n` +
+					'### :zap:Skills:zap::\n' +
+					`${skills}\n` +
+					'## :chart_with_upwards_trend:Stats:chart_with_upwards_trend::\n' +
+					`### :trophy:Leaderboard Position:trophy:: ${
+						userInfo.leaderboardPosition
+					}\n` +
+					`#### :pencil2:Authored Challenges:pencil2:: ${
+						userInfo.codeChallenges.totalAuthored
+					}\n` +
+					`#### :muscle:Completed Challenges:muscle:: ${
+						userInfo.codeChallenges.totalCompleted
+					}\n`;
+
+				var message = !readmeExists
+					? 'Added README.md file!'
+					: 'Updated README.md file!';
+
 				await createFile(readmePath, readmeContents);
-				spinner.info('Added README.md file!');
-			}
+				await github.commitChanges(readmePath, message);
+				spinner.info(message);
+			});
 
 			resolve('Done');
 		});
