@@ -20,7 +20,7 @@ const puppeteer = require('./cmds/puppeteer.js'),
 			return katas.parse(html);
 		})
 		.then(async function(katas) {
-			// await files.createReadme();
+			await files.createReadme();
 			await files.createKatas(katas);
 		})
 		.then(async function() {
