@@ -2,15 +2,14 @@
 
 ## Project Description
 
-Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally, and pushes them to Github.
+Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally, and pushes them to Github. Check out [my repo](https://github.com/ScottWorks/CodeWars-Challenges) to see it in action!
 
 ### Laundry List
 
 Feel free to add feature requests in the issues tracker.
 
 - [x] Support multiple languages
-- [ ] Improve scraping time and reliability
-- [ ] Add and maintain detailed README.md file generation (Challenge Repo)
+- [x] Add and maintain detailed README.md file generation (Challenge Repo)
 - [ ] Handle password rejection gracefully
 - [ ] Robust error handling
 
