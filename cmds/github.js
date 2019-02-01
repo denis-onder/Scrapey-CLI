@@ -9,9 +9,9 @@ module.exports = {
 			!isRepo && initializeRepo(git);
 		});
 	},
-	commitChanges: function(filePath, kataTitle) {
+	commitChanges: function(filePath, message) {
 		return git.add(filePath).then(function() {
-			return git.commit(`Completed ${kataTitle}`);
+			return git.commit(message);
 		});
 	},
 	pushChanges: function() {
