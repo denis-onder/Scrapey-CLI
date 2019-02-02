@@ -23,8 +23,8 @@ const puppeteer = require('./cmds/puppeteer.js'),
 			await files.createReadme();
 			await files.createKatas(katas);
 		})
-		.then(async function() {
-			await github.pushChanges();
+		.then(function() {
+			return github.pushChanges();
 		})
 		.then(function() {
 			return process.exit();
