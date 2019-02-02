@@ -18,7 +18,7 @@ Feel free to add feature requests in the issues tracker.
 
 **NOTE: Please be paitent with Scrapey while it does its scrapeing. Codewars servers can be slow at times so the timeout is set fairly high, if you want to change the timeout you can do so in the .env file by changing the 'TIMEOUT' constant which defaults to 80 seconds.**
 
-1. Clone this repo.
+1. Fork and Clone this repo.
 2. In the command-line navigate to the root of the project folder.
 3. Enter `npm install`.
 4. Login to your Github account, then make a new repository that will store the extracted Katas.
