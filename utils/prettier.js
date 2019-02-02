@@ -1,6 +1,6 @@
 const prettier = require('prettier'),
-  prettierConfig = require('./prettier.json');
+	prettierConfig = require('./prettier.json');
 
 module.exports = (payload) => {
-  return prettier.format(payload, prettierConfig);
+	return prettier.format(payload, prettierConfig);
 };
