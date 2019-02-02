@@ -9,7 +9,6 @@ module.exports = (callback) => {
 			`https://www.codewars.com/api/v1/users/${CODEWARS_USERNAME}?access_key=${CODEWARS_TOKEN}`,
 			function(res) {
 				const { statusCode } = res;
-				// const contentType = res.headers['content-type'];
 
 				let err;
 
