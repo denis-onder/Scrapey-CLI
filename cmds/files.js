@@ -76,13 +76,13 @@ module.exports = {
 				readmePath = `${DIR_PATH}/README.md`,
 				readmeExists = await checkPath(readmePath);
 
-			codewars(async function(userInfo) {
-				var skills = '';
+			var message = !readmeExists
+				? 'Added README.md file!'
+				: 'Updated README.md file!';
 
-				// userInfo.skills.forEach((skill) => {
-				// 	skills += `- ${skill}\n`;
-				// });
-				var languages = userInfo.ranks.languages;
+			codewars(async function(userInfo) {
+				var skills = '',
+					languages = userInfo.ranks.languages;
 
 				for (let language in languages) {
 					skills +=
@@ -109,14 +109,12 @@ module.exports = {
 						userInfo.codeChallenges.totalCompleted
 					}\n`;
 
-				var message = !readmeExists
-					? 'Added README.md file!'
-					: 'Updated README.md file!';
-
 				await createFile(readmePath, readmeContents);
-				await github.commitChanges(readmePath, message);
-				spinner.info(message);
 			});
+
+			await github.commitChanges(readmePath, message);
+
+			if (!readmeExists) spinner.info(message);
 
 			resolve('Done');
 		});
