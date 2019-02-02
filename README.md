@@ -8,8 +8,9 @@ Scrapey-CLI extracts challenge solutions from CodeWars.com, stores them locally,
 
 Feel free to add feature requests in the issues tracker.
 
-- [x] Support multiple languages
-- [x] Add and maintain detailed README.md file generation (Challenge Repo)
+- [x] Multi-language support
+- [x] Code challenge versioning
+- [x] Detailed README.md file generation
 - [ ] Handle password rejection gracefully
 - [ ] Robust error handling
 
