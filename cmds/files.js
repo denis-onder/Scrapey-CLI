@@ -34,22 +34,11 @@ module.exports = {
 					}
 
 					const filePath = `${dirPath}/${kataTitle}_v${version}${fileExtension}`;
-					let payload = '';
+
+					let payload = `${solutionsArr[i].code}\n`;
 
 					if (fileExtension === '.js') {
-						payload = formatJSFile(`
-              // ${kataTitle}
-              // ${kataLink}
-          
-              ${solutionsArr[i].code}
-            `);
-					} else {
-						payload = `
-          // ${kataTitle}
-          // ${kataLink}
-      
-          ${solutionsArr[i].code}
-          `;
+						payload = formatJSFile(payload);
 					}
 
 					const fileExists = await checkPath(filePath);
